@@ -3,6 +3,6 @@ repos:
     hooks:
       - id: generate-sample-env
         name: Generate .env.sample file
-        entry: python scripts/generate_sample_env.py
+        entry: python scripts/generate_sample_env.py && git add .
         language: system
         pass_filenames: false
