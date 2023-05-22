@@ -9,7 +9,7 @@ def generate_env_sample():
                     l = f"{key}=YOUR_{key}_HERE"
                     env_sample_file.write(f"{l}\n")
                 else:
-                    env_sample_file.write(f"{line}\n")
+                    env_sample_file.write(f"{line}")
 
 if __name__ == "__main__":
     generate_env_sample()
