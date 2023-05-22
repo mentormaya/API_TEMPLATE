@@ -20,3 +20,7 @@ api = FastAPI(
 @api.get("/")
 async def read_main():
     return {"msg": "Hello World"}
+
+@api.get("/favicon.ico", include_in_schema=False)
+async def read_main():
+    return {"msg": "no favicon needed"}
