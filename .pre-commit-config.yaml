@@ -5,3 +5,4 @@ repos:
         name: Generate .env.sample file
         entry: python scripts/generate_sample_env.py
         language: system
+        pass_filenames: false
