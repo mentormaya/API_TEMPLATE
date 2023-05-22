@@ -5,8 +5,8 @@ def generate_env_sample():
     and generate a sample env file named '.env.sample' 
     that include all the varibales key without any value and placeholder instead
     """
-    with open(".env", "r") as env_file:
-        with open(".env.sample", "w") as env_sample_file:
+    with open(".env.secret", "r") as env_file:
+        with open(".env.secret.sample", "w") as env_sample_file:
             for line in env_file:
                 if line.strip() and not line.startswith("#"):
                     key = line.split("=")[0]
