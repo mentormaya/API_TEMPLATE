@@ -1,6 +1,10 @@
 import os
 
 def generate_env_sample():
+    """_summary_: This is the function to extract the variables from the .env file 
+    and generate a sample env file named '.env.sample' 
+    that include all the varibales key without any value and placeholder instead
+    """
     with open(".env", "r") as env_file:
         with open(".env.sample", "w") as env_sample_file:
             for line in env_file:
