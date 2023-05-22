@@ -1,6 +1,3 @@
-from pprint import pprint
-from dotenv import dotenv_values
+from utils.constants import config
 
-config = dotenv_values(".env")
-
-pprint(config)
+print(config)
