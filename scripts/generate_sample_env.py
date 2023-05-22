@@ -8,6 +8,8 @@ def generate_env_sample():
                     key = line.split("=")[0]
                     l = f"{key}=YOUR_{key}_HERE"
                     env_sample_file.write(f"{l}\n")
+                else:
+                    env_sample_file.write(f"{line}\n")
 
 if __name__ == "__main__":
     generate_env_sample()
