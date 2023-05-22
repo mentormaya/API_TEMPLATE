@@ -6,7 +6,8 @@ def generate_env_sample():
             for line in env_file:
                 if line.strip() and not line.startswith("#"):
                     key = line.split("=")[0]
-                    env_sample_file.write(f"{key}=\n")
+                    l = f"{key}=YOUR_{key}_HERE"
+                    env_sample_file.write(f"{l}\n")
 
 if __name__ == "__main__":
     generate_env_sample()
