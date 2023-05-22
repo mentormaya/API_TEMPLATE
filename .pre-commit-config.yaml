@@ -1,0 +1,7 @@
+repos:
+  - repo: local
+    hooks:
+      - id: generate-sample-env
+        name: Generate .env.sample file
+        entry: python scripts/generate_sample_env.py
+        language: system
