@@ -14,3 +14,10 @@ repos:
         language: system
         pass_filenames: false
         always_run: true
+      
+      - id: add-all-files-generated
+        stages: [commit]
+        name: pytest-check
+        entry: git add .
+        language: system
+        always_run: true
