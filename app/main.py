@@ -22,5 +22,5 @@ async def read_main():
     return {"msg": "Hello World"}
 
 @api.get("/favicon.ico", include_in_schema=False)
-async def read_main():
+async def get_favicon():
     return {"msg": "no favicon needed"}
