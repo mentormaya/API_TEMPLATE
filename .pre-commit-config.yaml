@@ -10,7 +10,7 @@ repos:
         stages: [commit]
         types: [python]
         name: pytest-check
-        entry: pytest
+        entry: pytest --log-cli-level=DEBUG
         language: system
         pass_filenames: false
         always_run: true
