@@ -3,10 +3,10 @@ from app.main import api
 
 client = TestClient(api)
 
-def test_read_main():
-    response = client.get("/")
+def test_health_check():
+    response = client.get("/healthcheck")
     assert response.status_code == 200
-    assert response.json() == {"msg": "Hello World"}
+    assert response.json() == {"heartbeat": "I am alive!"}
 
 def test_get_favicon():
     response = client.get("/favicon.ico")
