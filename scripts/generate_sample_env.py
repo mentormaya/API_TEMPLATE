@@ -14,7 +14,6 @@ def generate_env_sample():
                     env_sample_file.write(f"{l}\n")
                 else:
                     env_sample_file.write(f"{line}")
-    
     os.system("git add .")
 
 if __name__ == "__main__":
