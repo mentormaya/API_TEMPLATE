@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 from utils.constants import config
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 
 origins = [
@@ -21,7 +23,10 @@ api = FastAPI(
         "name": config["APP_LICENSE_NAME"],
         "url": config["APP_LICENSE_URL"],
     },
+    openapi_url="/api/v1/openapi.json"
 )
+
+api.mount("/public", StaticFiles(directory="public"), name="public")
 
 api.add_middleware(
     CORSMiddleware,
@@ -60,4 +65,4 @@ async def health_check():
 # route for the favicon request
 @api.get("/favicon.ico", include_in_schema=False)
 async def get_favicon():
-    return {"msg": "no favicon needed"}
+    return FileResponse("public/images/mis.ico")
