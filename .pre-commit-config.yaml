@@ -9,7 +9,7 @@ repos:
       - id: pytest-check
         stages: [commit]
         types: [python]
-        name: pytest-check
+        name: Running the PyTest
         entry: pytest
         language: system
         pass_filenames: false
@@ -17,7 +17,7 @@ repos:
       
       - id: add-all-files-generated
         stages: [commit]
-        name: pytest-check
+        name: Adding all Generated files to the commit stage
         entry: git add .
         language: system
         always_run: true
