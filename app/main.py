@@ -4,6 +4,7 @@ from fastapi import FastAPI, status
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.openapi.docs import get_swagger_ui_html, get_swagger_ui_oauth2_redirect_html
 
 logger = Logger()
 
@@ -26,7 +27,10 @@ api = FastAPI(
         "name": config["APP_LICENSE_NAME"],
         "url": config["APP_LICENSE_URL"],
     },
-    openapi_url="/api/v1/openapi.json"
+    
+    openapi_url="/api/v1/openapi.json",
+    docs_url=None,
+    redoc_url=None
 )
 
 api.mount("/public", StaticFiles(directory="public"), name="public")
@@ -47,6 +51,19 @@ async def startup_event():
 def shutdown_event():
     logger.log(msg="Application Shutdown")
 
+@api.get("/docs", include_in_schema=False)
+async def custom_swagger_ui_html():
+    return get_swagger_ui_html(
+        openapi_url=api.openapi_url,
+        title = api.title + " - Docs UI",
+        oauth2_redirect_url=api.swagger_ui_oauth2_redirect_url,
+        swagger_favicon_url=config['APP_FAVICON'],  # Path to your favicon file
+    )
+
+@api.get(api.swagger_ui_oauth2_redirect_url, include_in_schema=False)
+async def swagger_ui_redirect():
+    return get_swagger_ui_oauth2_redirect_html()
+
 # route for the root
 @api.get("/", tags=["APP"])
 async def read_main():
@@ -65,7 +82,6 @@ async def read_main():
         },
         "version": config["APP_VERSION"],
     }
-
 
 # route for the healthcheck endpoint
 @api.get("/healthcheck", tags=["APP"])
