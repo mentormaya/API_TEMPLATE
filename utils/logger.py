@@ -5,18 +5,19 @@ from datetime import datetime as dt
 logger = logging.getLogger(__name__)
 
 LOG_FILE = f'{config["LOG_DIR"]}/{dt.now().strftime("%Y-%m-%d")}.log'
-LOG_FORMAT = "{:<19s} [{:^14s}] [{:^6s}] {:s}"
+LOG_FORMAT = "{:<19s} [{:^12s}] [{:^6s}] {:s}"
 
 
 class Logger:
     def __init__(self) -> None:
         self.logfile = LOG_FILE
-        with open(self.logfile, mode="w") as file:
-            pass
+        with open(self.logfile, mode="a+") as file:
+            file.close()
         self.log(msg="Application Log Initialized!")
-
+        
+    
     def log(self, msg: str, level: str = "INFO", host: str = "LocalHost"):
-        with open(self.logfile, mode="a") as lgfile:
+        with open(self.logfile, mode="a+") as lgfile:
             lgfile.write(
                 LOG_FORMAT.format(
                     dt.now().strftime(config["DATETIME_FORMAT_FULL"]),
@@ -25,3 +26,4 @@ class Logger:
                     msg + '\n',
                 )
             )
+            lgfile.close()

@@ -1,6 +1,6 @@
-from utils.constants import config
 from utils.logger import Logger
-from fastapi import FastAPI, status
+from utils.constants import config
+from fastapi import FastAPI, Request
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
@@ -52,7 +52,8 @@ def shutdown_event():
     logger.log(msg="Application Shutdown!")
 
 @api.get("/docs", include_in_schema=False)
-async def custom_swagger_ui_html():
+async def custom_swagger_ui_html(req: Request):
+    logger.log("Docs accessed!", host=req.client.host)
     return get_swagger_ui_html(
         openapi_url=api.openapi_url,
         title = api.title + " - Docs UI",
@@ -61,12 +62,14 @@ async def custom_swagger_ui_html():
     )
 
 @api.get(api.swagger_ui_oauth2_redirect_url, include_in_schema=False)
-async def swagger_ui_redirect():
+async def swagger_ui_redirect(req: Request):
+    logger.log("Docs UI redirected!", host=req.client.host)
     return get_swagger_ui_oauth2_redirect_html()
 
 # route for the root
 @api.get("/", tags=["APP"])
-async def read_main():
+async def read_main(req: Request):
+    logger.log("API Home accessed!", host=req.client.host)
     return {
         "title": config["APP_NAME"],
         "description": config["APP_DESCRIPTION"],
@@ -85,11 +88,13 @@ async def read_main():
 
 # route for the healthcheck endpoint
 @api.get("/healthcheck", tags=["APP"])
-async def health_check():
+async def health_check(req: Request):
+    logger.log("API health checked!", host=req.client.host)
     return {"heartbeat": "I am alive!"}
 
 
 # route for the favicon request
 @api.get("/favicon.ico", include_in_schema=False, response_class=FileResponse, tags=["APP"])
-async def get_favicon():
+async def get_favicon(req: Request):
+    logger.log("API favicon accessed!", host=req.client.host)
     return FileResponse(config["APP_FAVICON"])
