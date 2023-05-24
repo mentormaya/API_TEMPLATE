@@ -7,7 +7,6 @@ from httpx import AsyncClient
 from typing import AsyncIterator
 from utils.constants import config
 from fastapi.testclient import TestClient
-from fastapi.responses import FileResponse
 
 logger = logging.getLogger(__name__)
 
@@ -52,4 +51,4 @@ async def test_get_favicon():
     async with AsyncClient(app=api, base_url="http://test") as ac:
         response = await ac.get("/favicon.ico")
     assert response.status_code == status.HTTP_200_OK
-    # assert type(response) == FileResponse
+    assert response.headers["Content-Type"] == "image/x-icon"
