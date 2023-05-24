@@ -14,28 +14,18 @@ repos:
       - id: debug-statements
         name: Debug Statements (Python)
 
-      - id: double-quote-string-fixer
-        name: Fix Double quoted strings
-
       - id: name-tests-test
         name: Python Tests Naming
 
       - id: requirements-txt-fixer
         name: Fix requirements.txt
 
-  - repo: https://github.com/asottile/reorder-python-imports
-    rev: v3.9.0
-    hooks:
-      - id: reorder-python-imports
-        name: Reorder the import statements
-        exclude: ^(pre_commit/resources/|testing/resources/python3_hooks_repo/)
-        args: [--py38-plus, --add-import, "from __future__ import annotations"]
-
   - repo: https://github.com/psf/black
     rev: 22.10.0
     hooks:
     - id: black
       name: Format the Python Code
+      verbose: true
 
   - repo: local
     hooks:
@@ -43,6 +33,13 @@ repos:
         name: Generate .env.sample file
         entry: python scripts/generate_sample_env.py
         language: system
+
+      - id: add-all-files-generated
+        stages: [commit]
+        name: Adding all Generated files to the commit stage
+        entry: git add .
+        language: system
+        always_run: true
 
       - id: pytest-check
         stages: [commit]
@@ -52,10 +49,4 @@ repos:
         language: python
         pass_filenames: false
         always_run: true
-
-      - id: add-all-files-generated
-        stages: [commit]
-        name: Adding all Generated files to the commit stage
-        entry: git add .
-        language: system
-        always_run: true
+        verbose: true
