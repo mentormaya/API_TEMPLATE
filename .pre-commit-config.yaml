@@ -31,11 +31,11 @@ repos:
         exclude: ^(pre_commit/resources/|testing/resources/python3_hooks_repo/)
         args: [--py38-plus, --add-import, "from __future__ import annotations"]
 
-  - repo: https://github.com/psf/black
-    rev: 22.10.0
-    hooks:
-    - id: black
-      name: Format the Python Code
+  # - repo: https://github.com/psf/black
+  #   rev: 22.10.0
+  #   hooks:
+  #   - id: black
+  #     name: Format the Python Code
 
   - repo: local
     hooks:
