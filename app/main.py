@@ -9,6 +9,9 @@ from fastapi.staticfiles import StaticFiles
 from utils.constants import config
 from utils.logger import Logger
 
+from app.modules.user.routes import user as user_router
+from app.modules.auth.routes import auth as auth_router
+
 logger = Logger()
 
 origins = config["ORIGINS"].split(",")
@@ -105,3 +108,7 @@ async def health_check(req: Request):
 async def get_favicon(req: Request):
     logger.log("API favicon accessed!", host=req.client.host)
     return FileResponse(config["APP_FAVICON"])
+
+
+api.include_router(auth_router, prefix="/auth", tags=["Auth"])
+api.include_router(user_router, prefix="/users", tags=["Users"])
