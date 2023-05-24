@@ -1,8 +1,11 @@
-from fastapi import FastAPI
 from utils.constants import config
+from utils.logger import Logger
+from fastapi import FastAPI, status
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
+
+logger = Logger()
 
 origins = [
     "http://localhost:8000",
@@ -36,8 +39,16 @@ api.add_middleware(
     allow_headers=["*"],
 )
 
+@api.on_event("startup")
+async def startup_event():
+    logger.log(msg="Application Started")
+
+@api.on_event("shutdown")
+def shutdown_event():
+    logger.log(msg="Application Shutdown")
+
 # route for the root
-@api.get("/")
+@api.get("/", tags=["APP"])
 async def read_main():
     return {
         "title": config["APP_NAME"],
@@ -57,12 +68,12 @@ async def read_main():
 
 
 # route for the healthcheck endpoint
-@api.get("/healthcheck")
+@api.get("/healthcheck", tags=["APP"])
 async def health_check():
     return {"heartbeat": "I am alive!"}
 
 
 # route for the favicon request
-@api.get("/favicon.ico", include_in_schema=False)
+@api.get("/favicon.ico", include_in_schema=False, response_class=FileResponse, tags=["APP"])
 async def get_favicon():
     return FileResponse(config["APP_FAVICON"])
