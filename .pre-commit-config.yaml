@@ -5,14 +5,13 @@ repos:
         name: Generate .env.sample file
         entry: python scripts/generate_sample_env.py
         language: system
-
+      
       - id: pytest-check
         stages: [commit]
         types: [python]
         name: Running the PyTest
         entry: pytest
-        args: [--capture=tee-sys]
-        language: system
+        language: python
         pass_filenames: false
         always_run: true
       
