@@ -65,4 +65,4 @@ async def health_check():
 # route for the favicon request
 @api.get("/favicon.ico", include_in_schema=False)
 async def get_favicon():
-    return FileResponse("public/images/mis.ico")
+    return FileResponse(config["APP_FAVICON"])
