@@ -2,33 +2,33 @@ repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
     hooks:
-    - id: trailing-whitespace
-      name: Trim trailing whitespace
+      - id: trailing-whitespace
+        name: Trim trailing whitespace
 
-    - id: end-of-file-fixer
-      name: Fix end of files
+      - id: end-of-file-fixer
+        name: Fix end of files
 
-    - id: check-yaml
-      name: Check Yaml Files
+      - id: check-yaml
+        name: Check Yaml Files
 
-    - id: debug-statements
-      name: Debug Statements (Python)
+      - id: debug-statements
+        name: Debug Statements (Python)
 
-    - id: double-quote-string-fixer
-      name: Fix Double quoted strings
+      - id: double-quote-string-fixer
+        name: Fix Double quoted strings
 
-    - id: name-tests-test
-      name: Python Tests Naming
+      - id: name-tests-test
+        name: Python Tests Naming
 
-    - id: requirements-txt-fixer
-      name: Fix requirements.txt
+      - id: requirements-txt-fixer
+        name: Fix requirements.txt
 
   - repo: https://github.com/asottile/reorder-python-imports
     rev: v3.9.0
     hooks:
-    - id: reorder-python-imports
-      exclude: ^(pre_commit/resources/|testing/resources/python3_hooks_repo/)
-      args: [--py38-plus, --add-import, 'from __future__ import annotations']
+      - id: reorder-python-imports
+        exclude: ^(pre_commit/resources/|testing/resources/python3_hooks_repo/)
+        args: [--py38-plus, --add-import, "from __future__ import annotations"]
 
   - repo: local
     hooks:
@@ -36,7 +36,7 @@ repos:
         name: Generate .env.sample file
         entry: python scripts/generate_sample_env.py
         language: system
-      
+
       - id: pytest-check
         stages: [commit]
         types: [python]
@@ -45,7 +45,7 @@ repos:
         language: python
         pass_filenames: false
         always_run: true
-      
+
       - id: add-all-files-generated
         stages: [commit]
         name: Adding all Generated files to the commit stage
