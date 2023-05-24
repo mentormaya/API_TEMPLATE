@@ -45,11 +45,11 @@ api.add_middleware(
 
 @api.on_event("startup")
 async def startup_event():
-    logger.log(msg="Application Started")
+    logger.log(msg="Application Started!")
 
 @api.on_event("shutdown")
 def shutdown_event():
-    logger.log(msg="Application Shutdown")
+    logger.log(msg="Application Shutdown!")
 
 @api.get("/docs", include_in_schema=False)
 async def custom_swagger_ui_html():
