@@ -12,7 +12,7 @@ repos:
         name: Running the PyTest
         entry: pytest
         args: [--capture=tee-sys]
-        language: python
+        language: system
         pass_filenames: false
         always_run: true
       
