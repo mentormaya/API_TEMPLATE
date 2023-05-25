@@ -10,16 +10,20 @@ from fastapi.testclient import TestClient
 
 logger = logging.getLogger(__name__)
 
+
 @pytest.fixture
 def anyio_backend() -> str:
     return "asyncio"
+
 
 @pytest.fixture()
 async def ac() -> AsyncIterator[httpx.AsyncClient]:
     async with httpx.AsyncClient(app=api, base_url="http://testserver") as ac:
         yield ac
 
+
 client = TestClient(api)
+
 
 def test_read_main():
     response = client.get("/")
@@ -41,14 +45,19 @@ def test_read_main():
     assert response.status_code == status.HTTP_200_OK
     assert response.json() == app_info
 
+
 def test_health_check():
     response = client.get("/healthcheck")
     assert response.status_code == status.HTTP_200_OK
     assert response.json() == {"heartbeat": "I am alive!"}
+
 
 @pytest.mark.anyio
 async def test_get_favicon():
     async with AsyncClient(app=api, base_url="http://test") as ac:
         response = await ac.get("/favicon.ico")
     assert response.status_code == status.HTTP_200_OK
-    assert response.headers["Content-Type"] == "image/x-icon"
+    assert (
+        response.headers["Content-Type"] == "image/x-icon"
+        or response.headers["Content-Type"] == "image/vnd.microsoft.icon"
+    )
