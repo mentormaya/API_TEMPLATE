@@ -102,9 +102,7 @@ async def health_check(req: Request):
 
 
 # route for the favicon request
-@api.get(
-    "/favicon.ico", include_in_schema=False, response_class=FileResponse, tags=["APP"]
-)
+@api.get("/mis.ico", include_in_schema=False, response_class=FileResponse, tags=["APP"])
 async def get_favicon(req: Request):
     logger.log("API favicon accessed!", host=req.client.host)
     return FileResponse(config["APP_FAVICON"])

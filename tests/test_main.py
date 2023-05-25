@@ -55,7 +55,7 @@ def test_health_check():
 @pytest.mark.anyio
 async def test_get_favicon():
     async with AsyncClient(app=api, base_url="http://test") as ac:
-        response = await ac.get("/favicon.ico")
+        response = await ac.get("/mis.ico")
     assert response.status_code == status.HTTP_200_OK
     assert (
         response.headers["Content-Type"] == "image/x-icon"
