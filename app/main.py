@@ -10,7 +10,7 @@ from utils.constants import config
 from utils.logger import Logger
 
 from app.modules.user.routes import user as user_router
-from app.modules.auth.routes import auth as auth_router
+from app.modules.authentication.routes import auth as auth_router
 
 logger = Logger()
 

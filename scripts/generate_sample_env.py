@@ -1,5 +1,6 @@
 import os
 import time
+import subprocess
 
 
 def generate_env_sample():
@@ -18,6 +19,12 @@ def generate_env_sample():
                     env_sample_file.write(f"{line}")
 
 
+def add_generated_file_to_commit_stage():
+    """_summary_: This function add the generated env file to the commit stage to be able to be commited with commit preformed later."""
+    subprocess.run(["git", "add", "."])
+
+
 if __name__ == "__main__":
     generate_env_sample()
     time.sleep(1)
+    add_generated_file_to_commit_stage()

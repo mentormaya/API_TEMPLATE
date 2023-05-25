@@ -28,12 +28,12 @@ repos:
         entry: python scripts/generate_sample_env.py
         language: system
 
-      - id: add-all-files-generated
-        stages: [commit]
-        name: Adding all Generated files to the commit stage
-        entry: git add .
-        language: system
-        always_run: true
+      # - id: add-all-files-generated
+      #   stages: [commit]
+      #   name: Adding all Generated files to the commit stage
+      #   entry: git add .
+      #   language: system
+      #   always_run: true
 
       - id: pytest-check
         stages: [commit]
