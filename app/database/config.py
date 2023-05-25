@@ -1,7 +1,7 @@
 from utils.constants import config
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import declarative_base
 
 if "sqlite:///" in config["DATABASE_URL"]:
     engine = create_engine(
