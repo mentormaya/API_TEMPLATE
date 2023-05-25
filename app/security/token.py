@@ -7,13 +7,13 @@ from passlib.context import CryptContext
 from fastapi.security import OAuth2PasswordBearer
 
 # JWT configuration
-security = OAuth2PasswordBearer(tokenUrl="auth/token")
+security = OAuth2PasswordBearer(tokenUrl="auth/token", scheme_name="JWT")
 
 password_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 config["REFRESH_TOKEN_EXPIRE_DAYS"] = (
-    config["REFRESH_TOKEN_EXPIRE_DAYS"] * 24 * 7
-)  # 7 days
+    config["REFRESH_TOKEN_EXPIRE_DAYS"] * 60 * 24  # converted to days
+)
 
 
 def create_access_token(subject: Union[str, Any], expires_delta: int = None) -> str:
