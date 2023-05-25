@@ -1,4 +1,4 @@
-name: Test
+name: Test Status
 
 on: [push, pull_request]
 
@@ -16,7 +16,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.9  # Replace '3.x' with your desired Python version
+          python-version: 3.9 # Replace '3.x' with your desired Python version
 
       - name: Install dependencies
         run: |
@@ -24,4 +24,4 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run tests
-        run: pytest  # Replace 'pytest' with the command to run your tests
+        run: pytest # Replace 'pytest' with the command to run your tests
