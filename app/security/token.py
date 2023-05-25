@@ -11,9 +11,9 @@ security = OAuth2PasswordBearer(tokenUrl="auth/token", scheme_name="JWT")
 
 password_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-config["REFRESH_TOKEN_EXPIRE_DAYS"] = (
-    config["REFRESH_TOKEN_EXPIRE_DAYS"] * 60 * 24  # converted to days
-)
+config["REFRESH_TOKEN_EXPIRE_DAYS"] = int(
+    config["REFRESH_TOKEN_EXPIRE_DAYS"]
+)  # converted to days
 
 
 def create_access_token(subject: Union[str, Any], expires_delta: int = None) -> str:
@@ -21,7 +21,7 @@ def create_access_token(subject: Union[str, Any], expires_delta: int = None) -> 
         expires_delta = datetime.utcnow() + expires_delta
     else:
         expires_delta = datetime.utcnow() + timedelta(
-            minutes=config["ACCESS_TOKEN_EXPIRE_MINUTES"]
+            minutes=int(config["ACCESS_TOKEN_EXPIRE_MINUTES"])
         )
 
     to_encode = {"exp": expires_delta, "sub": str(subject)}
@@ -34,7 +34,7 @@ def create_refresh_token(subject: Union[str, Any], expires_delta: int = None) ->
         expires_delta = datetime.utcnow() + expires_delta
     else:
         expires_delta = datetime.utcnow() + timedelta(
-            minutes=config["REFRESH_TOKEN_EXPIRE_DAYS"]
+            days=config["REFRESH_TOKEN_EXPIRE_DAYS"]
         )
 
     to_encode = {"exp": expires_delta, "sub": str(subject)}

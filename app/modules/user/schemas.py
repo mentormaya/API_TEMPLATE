@@ -1,10 +1,12 @@
+from typing import List
 from uuid import UUID
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, EmailStr
 
 
 class TokenSchema(BaseModel):
     access_token: str
     refresh_token: str
+    type: str
 
 
 class TokenPayload(BaseModel):
@@ -12,15 +14,26 @@ class TokenPayload(BaseModel):
     exp: int = None
 
 
-class UserAuth(BaseModel):
-    email: str = Field(..., description="User Email")
-    password: str = Field(..., min_length=5, max_length=24, description="User Password")
+class UserBase(BaseModel):
+    email: EmailStr = Field(..., description="User Email")
 
 
-class UserOut(BaseModel):
-    id: UUID
-    email: str
+class UserAuth(UserBase):
+    password: str = Field(..., description="User Password")
 
 
-class SystemUser(UserOut):
-    password: str
+class UserCreate(UserAuth):
+    name: str = Field(..., description="User Full Name")
+
+
+class User(UserBase):
+    name: str = Field(..., description="User Full Name")
+    id: int
+
+
+class SystemUser(User):
+    password: str = Field(..., description="User Password")
+
+
+class UsersList(BaseModel):
+    users: List[User]

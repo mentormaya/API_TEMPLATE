@@ -7,6 +7,7 @@ from fastapi.staticfiles import StaticFiles
 
 from utils.constants import config
 from utils.logger import Logger
+from app.database.config import Base, engine
 
 from app.modules.user.routes import user as user_router
 from app.modules.authentication.routes import auth as auth_router
@@ -14,6 +15,9 @@ from app.modules.authentication.routes import auth as auth_router
 logger = Logger()
 
 origins = config["ORIGINS"].split(",")
+
+# Step 3: Create the database tables
+Base.metadata.create_all(bind=engine)
 
 api = FastAPI(
     title=config["APP_NAME"],
@@ -102,10 +106,18 @@ async def health_check(req: Request):
 
 # route for the favicon request
 @api.get("/mis.ico", include_in_schema=False, response_class=FileResponse, tags=["APP"])
+async def get_misicon(req: Request):
+    logger.log("API favicon accessed!", host=req.client.host)
+    return FileResponse(config["APP_FAVICON"])
+
+
+@api.get(
+    "/favicon.ico", include_in_schema=False, response_class=FileResponse, tags=["APP"]
+)
 async def get_favicon(req: Request):
     logger.log("API favicon accessed!", host=req.client.host)
     return FileResponse(config["APP_FAVICON"])
 
 
-api.include_router(auth_router, prefix="/auth", tags=["Auth"])
+api.include_router(auth_router, prefix="/auth", tags=["Authentication"])
 api.include_router(user_router, prefix="/users", tags=["Users"])
