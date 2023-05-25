@@ -1,8 +1,9 @@
 from typing import Annotated
-from fastapi import Depends, APIRouter
+
+from fastapi import Depends, APIRouter, HTTPException, status
 from sqlalchemy.orm import Session
 
-from app.security.token import security
+from app.security.token import hash_password, security
 
 from app.database.config import get_db
 
