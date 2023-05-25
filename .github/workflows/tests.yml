@@ -23,5 +23,5 @@ jobs:
           python -m pip install --upgrade pip setuptools wheel
           pip install -r requirements.txt
 
-      - name: Runnig tests
+      - name: Run tests
         run: pytest  # Replace 'pytest' with the command to run your tests
