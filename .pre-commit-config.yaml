@@ -10,8 +10,8 @@ repos:
         name: Check Yaml Files
       - id: debug-statements
         name: Debug Statements (Python)
-      # - id: name-tests-test
-      #   name: Python Naming Tests
+      - id: name-tests-test
+        name: Python Naming Tests
       - id: requirements-txt-fixer
         name: Fix requirements.txt
 
