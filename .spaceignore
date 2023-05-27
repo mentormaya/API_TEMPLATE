@@ -1,0 +1,9 @@
+.env.secret.sample
+.gitignore
+.pre-commit-config.yaml
+pytest.ini
+test/*
+.vscode
+.pytest*
+.github
+.venv

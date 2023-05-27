@@ -12,23 +12,28 @@ LOG_FORMAT = "{:<19s} [{:^12s}] [{:^6s}] {:s}"
 class Logger:
     def __init__(self) -> None:
         self.logfile = LOG_FILE
-        # Create the directory if it doesn't exist
-        if not os.path.exists(config['LOG_DIR']):
-            os.makedirs(config['LOG_DIR'])
-        # Open the file in append mode (creating it if it doesn't exist)
-        with open(self.logfile, mode="a+") as file:
-            file.close()
+        self.file_write = True
+        try:
+            # Create the directory if it doesn't exist
+            if not os.path.exists(config["LOG_DIR"]):
+                os.makedirs(config["LOG_DIR"])
+            # Open the file in append mode (creating it if it doesn't exist)
+            with open(self.logfile, mode="a+") as file:
+                file.close()
+        except:
+            self.file_write = False
+            print("File System Inaccessible!")
         self.log(msg="Application Log Initialized!")
-        
-    
+
     def log(self, msg: str, level: str = "INFO", host: str = "LocalHost"):
-        with open(self.logfile, mode="a+") as lgfile:
-            lgfile.write(
-                LOG_FORMAT.format(
-                    dt.now().strftime(config["DATETIME_FORMAT_FULL"]),
-                    host,
-                    level,
-                    msg + '\n',
+        if self.file_write:
+            with open(self.logfile, mode="a+") as lgfile:
+                lgfile.write(
+                    LOG_FORMAT.format(
+                        dt.now().strftime(config["DATETIME_FORMAT_FULL"]),
+                        host,
+                        level,
+                        msg + "\n",
+                    )
                 )
-            )
-            lgfile.close()
+                lgfile.close()

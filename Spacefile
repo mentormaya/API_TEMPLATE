@@ -1,0 +1,34 @@
+# Spacefile Docs: https://go.deta.dev/docs/spacefile/v0
+v: 0
+micros:
+  - name: API-TEMPLATE
+    src: ./
+    engine: python3.9
+    primary: true
+    run: python mis.py
+    dev: .venv/bin/python mis.py
+    presets:
+      env:
+        - name: DATABASE_URL
+          description: Database URL to which your app connect to.
+          default: "sqlite:///app/database/mis_dev.db"
+
+        - name: ALGORITHM
+          description: Algorith to be used to encrypt the token
+          default: "HS256"
+
+        - name: JWT_SECRET_KEY
+          description: Your Secret Key to sign your jwt tokens.
+          default: "pnoCjfImKV/9FQAvIzm2Gomw5teV6GsZewAkaPOOZ7o="
+
+        - name: JWT_REFRESH_SECRET_KEY
+          description: Your Secret Key to refresh your jwt tokens.
+          default: "9+14ajn+vc9/+0F61HlQN7Abm1R7wdyv6drVWCHwqMk="
+
+        - name: ACCESS_TOKEN_EXPIRE_MINUTES
+          description: Time in minutes for which the provided token will be valid.
+          default: "30"
+
+        - name: REFRESH_TOKEN_EXPIRE_DAYS
+          description: Time in days for which the provided refresh token will be valid
+          default: "7"
