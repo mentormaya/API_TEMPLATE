@@ -56,8 +56,6 @@ async def create_user(
     return user.__dict__
 
 
-@user.get(
-    "/me", summary="Get details of currently logged in user", response_model=SystemUser
-)
+@user.get("/me", summary="Get details of currently logged in user", response_model=User)
 async def get_me(user: User = Depends(get_current_user)):
     return user
