@@ -1,5 +1,4 @@
 from typing import Annotated, List
-from uuid import uuid4
 from fastapi import Depends, APIRouter, HTTPException, Request, status
 from sqlalchemy.orm import Session
 from app.modules.user.helper import get_current_user
