@@ -16,6 +16,11 @@ Base = declarative_base()
 
 
 def get_db():
+    """This is the function to get back a db instance.
+
+    Yields:
+        Session: SessionLocal a instance of Session from sqlalchemy.orm as a database instance
+    """
     db = SessionLocal()
     try:
         yield db
