@@ -1,4 +1,3 @@
-.env.secret.sample
 .gitignore
 .pre-commit-config.yaml
 pytest.ini

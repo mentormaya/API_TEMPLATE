@@ -6,8 +6,8 @@ micros:
     engine: python3.9
     primary: true
     run: uvicorn app.main:api
-    dev: .venv/bin/python mis.py
-    # dev: .venv/Scripts/python mis.py
+    # dev: .venv/bin/python mis.py
+    dev: .venv/Scripts/python mis.py
     presets:
       env:
         - name: DATABASE_URL
