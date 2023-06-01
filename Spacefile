@@ -10,6 +10,7 @@ micros:
     # dev: .venv/bin/python mis.py
     dev: .venv/Scripts/python mis.py
     presets:
+      api_keys: true
       env:
         - name: DATABASE_URL
           description: Database URL to which your app connect to.
