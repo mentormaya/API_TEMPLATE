@@ -1,7 +1,5 @@
 from utils.constants import config
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.orm import declarative_base
+from sqlmodel import Session, create_engine
 
 if "sqlite" in config["DATABASE_URL"]:
     engine = create_engine(
@@ -10,10 +8,6 @@ if "sqlite" in config["DATABASE_URL"]:
 else:
     engine = create_engine(config["DATABASE_URL"])
 
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-Base = declarative_base()
-
 
 def get_db():
     """This is the function to get back a db instance.
@@ -21,7 +15,7 @@ def get_db():
     Yields:
         Session: SessionLocal a instance of Session from sqlalchemy.orm as a database instance
     """
-    db = SessionLocal()
+    db = Session(engine)
     try:
         yield db
     finally:

@@ -4,10 +4,11 @@ from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.openapi.docs import get_swagger_ui_oauth2_redirect_html
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
+from sqlmodel import SQLModel
 
 from utils.constants import config
 from utils.logger import Logger
-from app.database.config import Base, engine
+from app.database.config import engine
 
 from app.modules.user.routes import user as user_router
 from app.modules.authentication.routes import auth as auth_router
@@ -17,7 +18,7 @@ logger = Logger()
 origins = config["ORIGINS"].split(",")
 
 # Step 3: Create the database tables
-Base.metadata.create_all(bind=engine)
+SQLModel.metadata.create_all(bind=engine)
 
 api = FastAPI(
     title=config["APP_NAME"],
