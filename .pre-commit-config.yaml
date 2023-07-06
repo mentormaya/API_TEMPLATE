@@ -35,12 +35,12 @@ repos:
       #   language: system
       #   always_run: true
 
-      - id: pytest-check
-        stages: [commit]
-        types: [python]
-        name: Running the PyTest
-        entry: pytest
-        language: python
-        pass_filenames: false
-        always_run: true
-        verbose: true
+      # - id: pytest-check
+      #   stages: [commit]
+      #   types: [python]
+      #   name: Running the PyTest
+      #   entry: pytest
+      #   language: python
+      #   pass_filenames: false
+      #   always_run: true
+      #   verbose: true

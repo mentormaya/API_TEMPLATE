@@ -10,7 +10,7 @@ from sqlmodel import (
     Relationship,
     String,
 )
-from app.model.AppModels import Person
+from app.models.Person import Person
 
 
 class Role(SQLModel, table=True):
